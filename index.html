@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biaya Simaksi Gunung Jawa</title>
+
+    <style>
+        /* ==== STYLE GLOBAL ==== */
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: #f3f7f0;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=60");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 80px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 45px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+        }
+
+        header p {
+            font-size: 18px;
+        }
+
+        /* ==== SEARCH BAR ==== */
+        .container {
+            width: 90%;
+            margin: auto;
+            margin-top: -40px;
+        }
+
+        #search {
+            width: 100%;
+            padding: 15px;
+            border-radius: 50px;
+            border: none;
+            font-size: 17px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            outline: none;
+        }
+
+        /* ==== GRID PRODUK ==== */
+        .grid {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            transform: translateY(0);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+            color: #2e5e2e;
+        }
+
+        .lokasi {
+            font-size: 15px;
+            color: #666;
+        }
+
+        .price {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #1f7a1f;
+        }
+
+        /* ==== FOOTER ==== */
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 15px;
+            background: #2e2e2e;
+            color: white;
+            font-size: 14px;
+        }
+
+        /* ==== ANIMASI ==== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+</head>
+<body>
+
+<header>
+    <h1>Biaya Simaksi Gunung di Pulau Jawa</h1>
+    <p>Informasi pendakian, biaya simaksi, dan lokasi gunung-gunung favorit di Pulau Jawa.</p>
+</header>
+
+<div class="container">
+    <input type="text" id="search" placeholder="Cari gunung atau lokasi..." onkeyup="searchGunung()">
+
+    <div id="gunungList" class="grid"></div>
+</div>
+
+<footer>
+    © 2025 Simaksi Jawa — Informasi Pendakian Indonesia
+</footer>
+
+
+<script>
+    // DATA SIMAKSI
+    const gunungData = [
+        { nama: "Gunung Semeru", biaya: 19000, lokasi: "Jawa Timur" },
+        { nama: "Gunung Lawu", biaya: 15000, lokasi: "Jawa Tengah" },
+        { nama: "Gunung Merbabu", biaya: 15000, lokasi: "Jawa Tengah" },
+        { nama: "Gunung Merapi", biaya: 15000, lokasi: "Jawa Tengah" },
+        { nama: "Gunung Ciremai", biaya: 20000, lokasi: "Jawa Barat" },
+        { nama: "Gunung Prau", biaya: 15000, lokasi: "Jawa Tengah" },
+        { nama: "Gunung Sindoro", biaya: 20000, lokasi: "Jawa Tengah" },
+        { nama: "Gunung Sumbing", biaya: 20000, lokasi: "Jawa Tengah" },
+        { nama: "Gunung Gede Pangrango", biaya: 29000, lokasi: "Jawa Barat" }
+    ];
+
+    const list = document.getElementById("gunungList");
+
+    function renderData(data) {
+        list.innerHTML = "";
+        data.forEach(g => {
+            list.innerHTML += `
+                <div class="card">
+                    <h3>${g.nama}</h3>
+                    <p class="lokasi">📍 ${g.lokasi}</p>
+                    <p class="price">Biaya Simaksi: Rp ${g.biaya.toLocaleString()}</p>
+                </div>
+            `;
+        });
+    }
+
+    renderData(gunungData);
+
+    function searchGunung() {
+        const keyword = document.getElementById("search").value.toLowerCase();
+        const hasil = gunungData.filter(g =>
+            g.nama.toLowerCase().includes(keyword) ||
+            g.lokasi.toLowerCase().includes(keyword)
+        );
+        renderData(hasil);
+    }
+</script>
+
+</body>
+</html>
